@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>кино-поиск</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="logo">кино<span class="logo-dot">-</span>поиск</div>
+      </header>
+
+      <main class="main">
+        <div class="search-section">
+          <div class="search-wrapper">
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Опишите фильм, который ищете..."
+              autocomplete="off"
+            />
+            <button class="search-button" id="searchButton">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="movies-dropdown" id="moviesDropdown"></div>
+
+          <button class="show-all-movies-btn" id="showAllMoviesBtn">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="2.18" />
+              <line x1="8" y1="2" x2="8" y2="22" />
+              <line x1="16" y1="2" x2="16" y2="22" />
+              <line x1="2" y1="8" x2="22" y2="8" />
+              <line x1="2" y1="16" x2="22" y2="16" />
+            </svg>
+            Каталог фильмов
+          </button>
+        </div>
+
+        <div class="content-area" id="contentArea">
+          <div class="welcome-state" id="welcomeState">
+            <div class="welcome-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="4" />
+                <line x1="8" y1="2" x2="8" y2="22" />
+                <line x1="16" y1="2" x2="16" y2="22" />
+                <line x1="2" y1="8" x2="22" y2="8" />
+                <line x1="2" y1="16" x2="22" y2="16" />
+              </svg>
+            </div>
+            <h2>Поиск фильмов по описанию</h2>
+            <p>
+              Напишите, что хотите посмотреть — нейросеть найдёт подходящие
+              фильмы в нашей базе
+            </p>
+          </div>
+
+          <div class="loading-state" id="loadingState" style="display: none">
+            <div class="loader"></div>
+            <p class="loading-text" id="loadingText">Анализируем запрос...</p>
+          </div>
+
+          <div class="results-state" id="resultsState" style="display: none">
+            <div class="results-header">
+              <h3 class="results-title" id="resultsTitle">Результаты поиска</h3>
+              <button class="new-search-btn" id="newSearchBtn">
+                Новый запрос
+              </button>
+            </div>
+            <div class="movies-grid" id="moviesGrid"></div>
+          </div>
+
+          <div class="empty-state" id="emptyState" style="display: none">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <circle cx="12" cy="16" r="0.5" fill="currentColor" />
+            </svg>
+            <p>Ничего не нашлось. Попробуйте описать иначе</p>
+          </div>
+
+          <div class="error-state" id="errorState" style="display: none">
+            <p id="errorText"></p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="movies-modal" id="moviesModal">
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>
+            Каталог фильмов
+            <span class="movies-count" id="modalMoviesCount"></span>
+          </h3>
+          <button class="modal-close" id="modalClose">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-search">
+          <input
+            type="text"
+            id="modalSearchInput"
+            placeholder="Поиск по названию..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="modal-grid" id="modalMoviesGrid"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
